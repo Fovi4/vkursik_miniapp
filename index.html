@@ -21,8 +21,6 @@
             --muted: #706b64;
             --line: #d9d2c7;
             --accent: #111111;
-            --accent-2: #e9dfc8;
-            --success: #1f7a3d;
             --danger: #b3261e;
         }
 
@@ -45,8 +43,16 @@
                 sans-serif;
 
             background:
-                radial-gradient(circle at top left, rgba(255,255,255,0.7), transparent 35%),
-                linear-gradient(180deg, #f8f5ef 0%, #f1eadf 100%);
+                radial-gradient(
+                    circle at top left,
+                    rgba(255,255,255,0.7),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    180deg,
+                    #f8f5ef 0%,
+                    #f1eadf 100%
+                );
 
             color: var(--text);
 
@@ -76,12 +82,16 @@
         .brand-badge {
             width: 36px;
             height: 36px;
+
             border-radius: 50%;
+
             background: #111;
             color: #fff;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-weight: 800;
             font-size: 16px;
         }
@@ -101,16 +111,22 @@
         .progress {
             width: 100%;
             height: 6px;
+
             border-radius: 999px;
+
             background: rgba(17, 17, 17, 0.09);
+
             overflow: hidden;
+
             margin-bottom: 28px;
         }
 
         .progress-inner {
-            width: 25%;
+            width: 20%;
             height: 100%;
+
             background: #111;
+
             transition: width 0.25s ease;
         }
 
@@ -120,6 +136,7 @@
 
         .screen.active {
             display: block;
+
             animation: fadeUp 0.2s ease;
         }
 
@@ -128,6 +145,7 @@
                 opacity: 0;
                 transform: translateY(6px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -136,16 +154,28 @@
 
         .hero {
             background:
-                linear-gradient(145deg, #111111 0%, #1f1f1f 100%);
+                linear-gradient(
+                    145deg,
+                    #111111 0%,
+                    #1f1f1f 100%
+                );
+
             color: #ffffff;
+
             border-radius: 28px;
+
             padding: 24px;
+
             margin-bottom: 22px;
+
             min-height: 280px;
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+
+            box-shadow:
+                0 16px 40px rgba(0,0,0,0.12);
         }
 
         .hero-top {
@@ -162,29 +192,40 @@
         .hero-note {
             font-size: 13px;
             opacity: 0.68;
+
             text-transform: uppercase;
+
             letter-spacing: 0.6px;
         }
 
         h1 {
             margin: 0 0 14px;
+
             font-size: 37px;
             line-height: 0.98;
+
             letter-spacing: -1.6px;
         }
 
         h2 {
             margin: 0 0 12px;
+
             font-size: 30px;
             line-height: 1.02;
+
             letter-spacing: -1px;
         }
 
         .subtitle,
         .description {
             color: var(--muted);
+
             font-size: 16px;
             line-height: 1.5;
+        }
+
+        .hero .subtitle {
+            color: rgba(255,255,255,0.72);
         }
 
         .description {
@@ -193,9 +234,15 @@
 
         .panel {
             background: rgba(255,255,255,0.58);
-            border: 1px solid rgba(17,17,17,0.08);
+
+            border:
+                1px solid
+                rgba(17,17,17,0.08);
+
             border-radius: 22px;
+
             padding: 18px;
+
             backdrop-filter: blur(8px);
         }
 
@@ -205,32 +252,47 @@
 
         label {
             display: block;
+
             font-size: 14px;
             font-weight: 700;
+
             margin-bottom: 8px;
         }
 
         input,
-        select,
         textarea {
             width: 100%;
-            border: 1px solid var(--line);
+
+            border:
+                1px solid
+                var(--line);
+
             border-radius: 16px;
-            background: rgba(255,255,255,0.86);
+
+            background:
+                rgba(255,255,255,0.86);
+
             color: var(--text);
+
             font: inherit;
             font-size: 16px;
+
             padding: 15px 16px;
+
             outline: none;
+
             transition: 0.15s ease;
         }
 
         input:focus,
-        select:focus,
         textarea:focus {
             border-color: #111;
+
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(17,17,17,0.05);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(17,17,17,0.05);
         }
 
         textarea {
@@ -240,30 +302,96 @@
 
         .hint {
             margin-top: 6px;
+
             color: var(--muted);
+
             font-size: 13px;
             line-height: 1.4;
         }
 
+        .course-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+        .course-card {
+            background:
+                rgba(255,255,255,0.82);
+
+            color: #111;
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 16px;
+
+            padding: 16px;
+
+            font-size: 16px;
+            font-weight: 800;
+
+            box-shadow: none;
+
+            cursor: pointer;
+
+            transition: 0.15s ease;
+        }
+
+        .course-card:hover {
+            background: #fff;
+        }
+
+        .course-card.selected {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        .course-other {
+            grid-column: span 3;
+        }
+
         .directions {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
             gap: 10px;
+
             margin-bottom: 8px;
         }
 
         .direction {
-            border: 1px solid var(--line);
+            border:
+                1px solid
+                var(--line);
+
             border-radius: 18px;
-            background: rgba(255,255,255,0.78);
+
+            background:
+                rgba(255,255,255,0.78);
+
             min-height: 108px;
+
             padding: 16px;
+
             cursor: pointer;
+
             transition: 0.15s ease;
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+
+            box-shadow:
+                0 4px 14px
+                rgba(0,0,0,0.03);
         }
 
         .direction:hover {
@@ -275,7 +403,10 @@
             background: #111;
             border-color: #111;
             color: #fff;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+
+            box-shadow:
+                0 12px 24px
+                rgba(0,0,0,0.12);
         }
 
         .direction-icon {
@@ -295,19 +426,27 @@
 
         button {
             width: 100%;
+
             border: none;
             border-radius: 16px;
+
             padding: 16px 18px;
+
             font-size: 16px;
             font-weight: 800;
+
             cursor: pointer;
+
             transition: 0.15s ease;
         }
 
         .primary-btn {
             background: #111;
             color: #fff;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+
+            box-shadow:
+                0 12px 24px
+                rgba(0,0,0,0.12);
         }
 
         .primary-btn:hover {
@@ -316,41 +455,63 @@
 
         .primary-btn:disabled {
             opacity: 0.5;
+
             cursor: default;
+
             transform: none;
         }
 
         .ghost-btn {
             margin-top: 8px;
+
             background: transparent;
             color: var(--text);
-            border: 1px solid rgba(17,17,17,0.08);
+
+            border:
+                1px solid
+                rgba(17,17,17,0.08);
         }
 
         .error {
             display: none;
+
             margin-top: 10px;
+
             color: var(--danger);
+
             font-size: 13px;
             line-height: 1.4;
+
             font-weight: 600;
         }
 
         .mini-tag {
             display: inline-block;
+
             padding: 8px 12px;
+
             border-radius: 999px;
-            background: rgba(17,17,17,0.06);
+
+            background:
+                rgba(17,17,17,0.06);
+
             font-size: 13px;
             font-weight: 700;
+
             margin-bottom: 14px;
         }
 
         .final-card {
-            background: rgba(255,255,255,0.72);
+            background:
+                rgba(255,255,255,0.72);
+
             border-radius: 24px;
+
             padding: 20px;
-            border: 1px solid rgba(17,17,17,0.08);
+
+            border:
+                1px solid
+                rgba(17,17,17,0.08);
         }
 
         .final-list {
@@ -360,35 +521,51 @@
 
         .final-item {
             padding: 14px 15px;
+
             border-radius: 16px;
-            background: rgba(255,255,255,0.72);
-            border: 1px solid rgba(17,17,17,0.06);
+
+            background:
+                rgba(255,255,255,0.72);
+
+            border:
+                1px solid
+                rgba(17,17,17,0.06);
         }
 
         .final-item-title {
             font-size: 12px;
+
             color: var(--muted);
+
             margin-bottom: 4px;
+
             font-weight: 700;
+
             text-transform: uppercase;
+
             letter-spacing: 0.3px;
         }
 
         .final-item-value {
             font-size: 15px;
             font-weight: 700;
+
             line-height: 1.4;
+
             word-break: break-word;
         }
 
         .footer-note {
             margin-top: 18px;
+
             color: var(--muted);
+
             font-size: 13px;
             line-height: 1.45;
         }
 
         @media (max-width: 420px) {
+
             .directions {
                 grid-template-columns: 1fr;
             }
@@ -405,264 +582,707 @@
 </head>
 
 <body>
+
 <div class="app">
 
     <div class="topbar">
+
         <div class="brand">
-            <div class="brand-badge">В</div>
-            <div class="brand-text">В курсе media RUDN</div>
+
+            <div class="brand-badge">
+                В
+            </div>
+
+            <div class="brand-text">
+                В курсе media RUDN
+            </div>
+
         </div>
 
-        <div class="step-label" id="stepLabel">1 / 5</div>
+        <div
+            class="step-label"
+            id="stepLabel"
+        >
+            1 / 5
+        </div>
+
     </div>
+
 
     <div class="progress">
-        <div class="progress-inner" id="progress"></div>
+
+        <div
+            class="progress-inner"
+            id="progress"
+        ></div>
+
     </div>
 
+
+
     <!-- STEP 1 -->
-    <section class="screen active" data-step="1">
+
+    <section
+        class="screen active"
+        data-step="1"
+    >
+
         <div class="hero">
+
             <div class="hero-top">
-                <div class="hero-note">Набор в команду</div>
-                <div class="hero-mark">👀</div>
+
+                <div class="hero-note">
+                    Набор в команду
+                </div>
+
+                <div class="hero-mark">
+                    👀
+                </div>
+
             </div>
+
 
             <div>
-                <h1>Хочешь быть по эту сторону контента?</h1>
+
+                <h1>
+                    Хочешь быть по эту сторону контента?
+                </h1>
+
                 <div class="subtitle">
-                    Расскажи немного о себе, выбери направление —
-                    и твоя заявка сразу попадёт команде «В курсе».
+                    Расскажи немного о себе,
+                    выбери направление —
+                    и твоя заявка сразу попадёт
+                    команде «В курсе».
                 </div>
+
             </div>
+
         </div>
 
+
         <div class="panel">
-            <div class="mini-tag">Что будет дальше</div>
-            <div class="description" style="margin-bottom: 0;">
+
+            <div class="mini-tag">
+                Что будет дальше
+            </div>
+
+            <div
+                class="description"
+                style="margin-bottom: 0;"
+            >
                 1. Ты заполняешь короткую заявку.<br>
                 2. Мы смотрим, что тебе ближе.<br>
                 3. Если всё мэтчится — зовём дальше 👀
             </div>
+
         </div>
+
 
         <div class="actions">
-            <button class="primary-btn" onclick="nextStep()">Начать →</button>
+
+            <button
+                class="primary-btn"
+                onclick="nextStep()"
+            >
+                Начать →
+            </button>
+
         </div>
+
     </section>
 
+
+
     <!-- STEP 2 -->
-    <section class="screen" data-step="2">
-        <h2>Для начала познакомимся</h2>
+
+    <section
+        class="screen"
+        data-step="2"
+    >
+
+        <h2>
+            Для начала познакомимся
+        </h2>
+
         <p class="description">
             Нужна только базовая информация.
         </p>
 
+
         <div class="panel">
+
             <div class="field">
-                <label for="name">Как тебя зовут?</label>
+
+                <label for="name">
+                    Как тебя зовут?
+                </label>
+
                 <input
                     id="name"
                     type="text"
                     placeholder="Имя и фамилия"
                 >
+
             </div>
 
+
             <div class="field">
-                <label for="faculty">Факультет / институт</label>
+
+                <label for="faculty">
+                    Факультет / институт
+                </label>
+
                 <input
                     id="faculty"
                     type="text"
                     placeholder="Например, ИИЯ"
                 >
+
             </div>
 
-            <div class="field" style="margin-bottom: 0;">
-                <label for="course">Курс</label>
-                <select id="course">
-                    <option value="">Выбери курс</option>
-                    <option value="1 курс">1 курс</option>
-                    <option value="2 курс">2 курс</option>
-                    <option value="3 курс">3 курс</option>
-                    <option value="4 курс">4 курс</option>
-                    <option value="5 курс">5 курс</option>
-                    <option value="6 курс">6 курс</option>
-                    <option value="Другое">Другое</option>
-                </select>
+
+            <div
+                class="field"
+                style="margin-bottom: 0;"
+            >
+
+                <label>
+                    Курс
+                </label>
+
+                <div class="course-grid">
+
+                    <button
+                        type="button"
+                        class="course-card"
+                        data-course="1 курс"
+                    >
+                        1
+                    </button>
+
+                    <button
+                        type="button"
+                        class="course-card"
+                        data-course="2 курс"
+                    >
+                        2
+                    </button>
+
+                    <button
+                        type="button"
+                        class="course-card"
+                        data-course="3 курс"
+                    >
+                        3
+                    </button>
+
+                    <button
+                        type="button"
+                        class="course-card"
+                        data-course="4 курс"
+                    >
+                        4
+                    </button>
+
+                    <button
+                        type="button"
+                        class="course-card"
+                        data-course="5 курс"
+                    >
+                        5
+                    </button>
+
+                    <button
+                        type="button"
+                        class="course-card"
+                        data-course="6 курс"
+                    >
+                        6
+                    </button>
+
+                    <button
+                        type="button"
+                        class="course-card course-other"
+                        data-course="Другое"
+                    >
+                        Другое
+                    </button>
+
+                </div>
+
             </div>
+
         </div>
 
-        <div class="error" id="personalError">
-            Заполни имя, факультет и курс.
+
+        <div
+            class="error"
+            id="personalError"
+        >
+            Заполни имя, факультет и выбери курс.
         </div>
+
 
         <div class="actions">
-            <button class="primary-btn" onclick="validatePersonal()">Продолжить →</button>
-            <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+
+            <button
+                class="primary-btn"
+                onclick="validatePersonal()"
+            >
+                Продолжить →
+            </button>
+
+            <button
+                class="ghost-btn"
+                onclick="prevStep()"
+            >
+                ← Назад
+            </button>
+
         </div>
+
     </section>
 
+
+
     <!-- STEP 3 -->
-    <section class="screen" data-step="3">
-        <h2>Куда хочешь?</h2>
+
+    <section
+        class="screen"
+        data-step="3"
+    >
+
+        <h2>
+            Куда хочешь?
+        </h2>
+
         <p class="description">
-            Выбери направление, которое тебе ближе всего.
+            Выбери направление,
+            которое тебе ближе всего.
         </p>
 
+
         <div class="directions">
-            <div class="direction" data-direction="Креаторы" onclick="selectDirection(this)">
-                <div class="direction-icon">💡</div>
-                <div class="direction-name">Креаторы</div>
+
+            <div
+                class="direction"
+                data-direction="Креаторы"
+                onclick="selectDirection(this)"
+            >
+
+                <div class="direction-icon">
+                    💡
+                </div>
+
+                <div class="direction-name">
+                    Креаторы
+                </div>
+
             </div>
 
-            <div class="direction" data-direction="Дизайн" onclick="selectDirection(this)">
-                <div class="direction-icon">🎨</div>
-                <div class="direction-name">Дизайн</div>
+
+            <div
+                class="direction"
+                data-direction="Дизайн"
+                onclick="selectDirection(this)"
+            >
+
+                <div class="direction-icon">
+                    🎨
+                </div>
+
+                <div class="direction-name">
+                    Дизайн
+                </div>
+
             </div>
 
-            <div class="direction" data-direction="Фото" onclick="selectDirection(this)">
-                <div class="direction-icon">📸</div>
-                <div class="direction-name">Фото</div>
+
+            <div
+                class="direction"
+                data-direction="Фото"
+                onclick="selectDirection(this)"
+            >
+
+                <div class="direction-icon">
+                    📸
+                </div>
+
+                <div class="direction-name">
+                    Фото
+                </div>
+
             </div>
 
-            <div class="direction" data-direction="Видео" onclick="selectDirection(this)">
-                <div class="direction-icon">🎥</div>
-                <div class="direction-name">Видео</div>
+
+            <div
+                class="direction"
+                data-direction="Видео"
+                onclick="selectDirection(this)"
+            >
+
+                <div class="direction-icon">
+                    🎥
+                </div>
+
+                <div class="direction-name">
+                    Видео
+                </div>
+
             </div>
 
-            <div class="direction" data-direction="SMM" onclick="selectDirection(this)">
-                <div class="direction-icon">📱</div>
-                <div class="direction-name">SMM</div>
+
+            <div
+                class="direction"
+                data-direction="SMM"
+                onclick="selectDirection(this)"
+            >
+
+                <div class="direction-icon">
+                    📱
+                </div>
+
+                <div class="direction-name">
+                    SMM
+                </div>
+
             </div>
+
         </div>
 
-        <div class="error" id="directionError">
+
+        <div
+            class="error"
+            id="directionError"
+        >
             Выбери хотя бы одно направление.
         </div>
 
+
         <div class="actions">
-            <button class="primary-btn" onclick="validateDirection()">Это моё →</button>
-            <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+
+            <button
+                class="primary-btn"
+                onclick="validateDirection()"
+            >
+                Это моё →
+            </button>
+
+            <button
+                class="ghost-btn"
+                onclick="prevStep()"
+            >
+                ← Назад
+            </button>
+
         </div>
+
     </section>
 
+
+
     <!-- STEP 4 -->
-    <section class="screen" data-step="4">
-        <h2>Теперь — про опыт</h2>
+
+    <section
+        class="screen"
+        data-step="4"
+    >
+
+        <h2>
+            Теперь — про опыт
+        </h2>
+
         <p class="description">
-            Необязательно быть суперпрофи. Просто честно расскажи, что у тебя уже есть.
+            Необязательно быть суперпрофи.
+            Просто честно расскажи,
+            что у тебя уже есть.
         </p>
 
+
         <div class="panel">
+
             <div class="field">
-                <label for="experience">Что ты уже умеешь?</label>
+
+                <label for="experience">
+                    Что ты уже умеешь?
+                </label>
+
                 <textarea
                     id="experience"
                     placeholder="Проекты, студенческая деятельность, навыки, идеи, опыт работы..."
                 ></textarea>
+
             </div>
 
-            <div class="field" style="margin-bottom: 0;">
-                <label for="portfolio">Есть что показать?</label>
+
+            <div
+                class="field"
+                style="margin-bottom: 0;"
+            >
+
+                <label for="portfolio">
+                    Есть что показать?
+                </label>
+
                 <input
                     id="portfolio"
                     type="text"
                     placeholder="Ссылка на портфолио / соцсети / работы"
                 >
+
                 <div class="hint">
-                    Если пока ничего нет — просто оставь поле пустым.
+                    Если пока ничего нет —
+                    просто оставь поле пустым.
                 </div>
+
             </div>
+
         </div>
 
-        <div class="error" id="experienceError">
+
+        <div
+            class="error"
+            id="experienceError"
+        >
             Расскажи хотя бы немного о своём опыте.
         </div>
 
+
         <div class="actions">
-            <button class="primary-btn" onclick="validateExperience()">Дальше →</button>
-            <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+
+            <button
+                class="primary-btn"
+                onclick="validateExperience()"
+            >
+                Дальше →
+            </button>
+
+            <button
+                class="ghost-btn"
+                onclick="prevStep()"
+            >
+                ← Назад
+            </button>
+
         </div>
+
     </section>
 
+
+
     <!-- STEP 5 -->
-    <section class="screen" data-step="5">
-        <h2>Последний шаг</h2>
+
+    <section
+        class="screen"
+        data-step="5"
+    >
+
+        <h2>
+            Последний шаг
+        </h2>
+
         <p class="description">
-            Почему тебе хочется быть частью «В курсе»?
+            Почему тебе хочется
+            быть частью «В курсе»?
         </p>
 
+
         <div class="panel">
-            <div class="field" style="margin-bottom: 0;">
-                <label for="motivation">Твоя мотивация</label>
+
+            <div
+                class="field"
+                style="margin-bottom: 0;"
+            >
+
+                <label for="motivation">
+                    Твоя мотивация
+                </label>
+
                 <textarea
                     id="motivation"
                     placeholder="Например: хочу создавать контент, развиваться в медиа, быть частью команды..."
                 ></textarea>
+
             </div>
+
         </div>
 
-        <div class="error" id="motivationError">
+
+        <div
+            class="error"
+            id="motivationError"
+        >
             Напиши, почему ты хочешь во «В курсе».
         </div>
 
+
         <div class="actions">
-            <button class="primary-btn" onclick="showPreview()">Проверить заявку →</button>
-            <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+
+            <button
+                class="primary-btn"
+                onclick="showPreview()"
+            >
+                Проверить заявку →
+            </button>
+
+            <button
+                class="ghost-btn"
+                onclick="prevStep()"
+            >
+                ← Назад
+            </button>
+
         </div>
+
     </section>
 
-    <!-- STEP 6 PREVIEW -->
-    <section class="screen" data-step="6">
-        <h2>Проверь заявку</h2>
+
+
+    <!-- PREVIEW -->
+
+    <section
+        class="screen"
+        data-step="6"
+    >
+
+        <h2>
+            Проверь заявку
+        </h2>
+
         <p class="description">
-            Если всё верно — отправляй.
+            Если всё верно —
+            отправляй.
         </p>
 
+
         <div class="final-card">
+
             <div class="final-list">
-                <div class="final-item">
-                    <div class="final-item-title">Имя</div>
-                    <div class="final-item-value" id="previewName">—</div>
-                </div>
 
                 <div class="final-item">
-                    <div class="final-item-title">Факультет / институт</div>
-                    <div class="final-item-value" id="previewFaculty">—</div>
+
+                    <div class="final-item-title">
+                        Имя
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewName"
+                    >
+                        —
+                    </div>
+
                 </div>
 
-                <div class="final-item">
-                    <div class="final-item-title">Курс</div>
-                    <div class="final-item-value" id="previewCourse">—</div>
-                </div>
 
                 <div class="final-item">
-                    <div class="final-item-title">Направление</div>
-                    <div class="final-item-value" id="previewDirection">—</div>
+
+                    <div class="final-item-title">
+                        Факультет / институт
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewFaculty"
+                    >
+                        —
+                    </div>
+
                 </div>
 
-                <div class="final-item">
-                    <div class="final-item-title">Опыт</div>
-                    <div class="final-item-value" id="previewExperience">—</div>
-                </div>
 
                 <div class="final-item">
-                    <div class="final-item-title">Портфолио</div>
-                    <div class="final-item-value" id="previewPortfolio">—</div>
+
+                    <div class="final-item-title">
+                        Курс
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewCourse"
+                    >
+                        —
+                    </div>
+
                 </div>
 
+
                 <div class="final-item">
-                    <div class="final-item-title">Мотивация</div>
-                    <div class="final-item-value" id="previewMotivation">—</div>
+
+                    <div class="final-item-title">
+                        Направление
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewDirection"
+                    >
+                        —
+                    </div>
+
                 </div>
+
+
+                <div class="final-item">
+
+                    <div class="final-item-title">
+                        Опыт
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewExperience"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="final-item">
+
+                    <div class="final-item-title">
+                        Портфолио
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewPortfolio"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="final-item">
+
+                    <div class="final-item-title">
+                        Мотивация
+                    </div>
+
+                    <div
+                        class="final-item-value"
+                        id="previewMotivation"
+                    >
+                        —
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div class="footer-note">
-                После отправки заявка сразу уйдёт команде «В курсе».
+                После отправки заявка
+                сразу уйдёт команде «В курсе».
             </div>
+
         </div>
 
+
         <div class="actions">
+
             <button
                 class="primary-btn"
                 id="submitButton"
@@ -671,156 +1291,478 @@
                 Отправить заявку
             </button>
 
-            <button class="ghost-btn" onclick="backFromPreview()">← Изменить</button>
+            <button
+                class="ghost-btn"
+                onclick="backFromPreview()"
+            >
+                ← Изменить
+            </button>
+
         </div>
+
     </section>
 
 </div>
 
+
 <script>
-    const tg = window.Telegram.WebApp;
+
+    const tg =
+        window.Telegram.WebApp;
+
     tg.ready();
     tg.expand();
 
+
     let currentStep = 1;
+
     let selectedDirection = null;
+
+    let selectedCourse = null;
+
     const totalDisplaySteps = 5;
 
-    function updateStepUi() {
-        document.querySelectorAll(".screen").forEach(screen => {
-            screen.classList.remove("active");
+
+    document
+        .querySelectorAll(".course-card")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .querySelectorAll(
+                            ".course-card"
+                        )
+                        .forEach(item => {
+
+                            item.classList.remove(
+                                "selected"
+                            );
+
+                        });
+
+
+                    this.classList.add(
+                        "selected"
+                    );
+
+
+                    selectedCourse =
+                        this.dataset.course;
+
+
+                    document.getElementById(
+                        "personalError"
+                    ).style.display =
+                        "none";
+
+                }
+            );
+
         });
 
-        const activeScreen = document.querySelector(`[data-step="${currentStep}"]`);
+
+    function updateStepUi() {
+
+        document
+            .querySelectorAll(".screen")
+            .forEach(screen => {
+
+                screen.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+        const activeScreen =
+            document.querySelector(
+                `[data-step="${currentStep}"]`
+            );
+
+
         if (activeScreen) {
-            activeScreen.classList.add("active");
+
+            activeScreen.classList.add(
+                "active"
+            );
+
         }
 
-        const displayStep = currentStep > 5 ? 5 : currentStep;
-        document.getElementById("stepLabel").textContent = `${displayStep} / ${totalDisplaySteps}`;
 
-        const progressPercent = currentStep === 6
-            ? 100
-            : (displayStep / totalDisplaySteps) * 100;
+        const displayStep =
+            currentStep > 5
+                ? 5
+                : currentStep;
 
-        document.getElementById("progress").style.width = `${progressPercent}%`;
+
+        document.getElementById(
+            "stepLabel"
+        ).textContent =
+            `${displayStep} / ${totalDisplaySteps}`;
+
+
+        const progressPercent =
+            currentStep === 6
+                ? 100
+                : (
+                    displayStep /
+                    totalDisplaySteps
+                ) * 100;
+
+
+        document.getElementById(
+            "progress"
+        ).style.width =
+            `${progressPercent}%`;
+
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
+
     }
+
 
     function nextStep() {
+
         currentStep++;
+
         updateStepUi();
+
     }
+
 
     function prevStep() {
+
         if (currentStep > 1) {
+
             currentStep--;
+
             updateStepUi();
+
         }
+
     }
+
 
     function backFromPreview() {
+
         currentStep = 5;
+
         updateStepUi();
+
     }
+
 
     function validatePersonal() {
-        const name = document.getElementById("name").value.trim();
-        const faculty = document.getElementById("faculty").value.trim();
-        const course = document.getElementById("course").value;
 
-        if (!name || !faculty || !course) {
-            document.getElementById("personalError").style.display = "block";
+        const name =
+            document
+                .getElementById("name")
+                .value
+                .trim();
+
+
+        const faculty =
+            document
+                .getElementById("faculty")
+                .value
+                .trim();
+
+
+        if (
+            !name ||
+            !faculty ||
+            !selectedCourse
+        ) {
+
+            document.getElementById(
+                "personalError"
+            ).style.display =
+                "block";
+
             return;
+
         }
 
-        document.getElementById("personalError").style.display = "none";
+
+        document.getElementById(
+            "personalError"
+        ).style.display =
+            "none";
+
+
         nextStep();
+
     }
 
-    function selectDirection(element) {
-        document.querySelectorAll(".direction").forEach(card => {
-            card.classList.remove("selected");
-        });
 
-        element.classList.add("selected");
-        selectedDirection = element.dataset.direction;
-        document.getElementById("directionError").style.display = "none";
+    function selectDirection(
+        element
+    ) {
+
+        document
+            .querySelectorAll(
+                ".direction"
+            )
+            .forEach(card => {
+
+                card.classList.remove(
+                    "selected"
+                );
+
+            });
+
+
+        element.classList.add(
+            "selected"
+        );
+
+
+        selectedDirection =
+            element.dataset.direction;
+
+
+        document.getElementById(
+            "directionError"
+        ).style.display =
+            "none";
+
     }
+
 
     function validateDirection() {
+
         if (!selectedDirection) {
-            document.getElementById("directionError").style.display = "block";
+
+            document.getElementById(
+                "directionError"
+            ).style.display =
+                "block";
+
             return;
+
         }
 
-        document.getElementById("directionError").style.display = "none";
+
+        document.getElementById(
+            "directionError"
+        ).style.display =
+            "none";
+
+
         nextStep();
+
     }
+
 
     function validateExperience() {
-        const experience = document.getElementById("experience").value.trim();
+
+        const experience =
+            document
+                .getElementById(
+                    "experience"
+                )
+                .value
+                .trim();
+
 
         if (!experience) {
-            document.getElementById("experienceError").style.display = "block";
+
+            document.getElementById(
+                "experienceError"
+            ).style.display =
+                "block";
+
             return;
+
         }
 
-        document.getElementById("experienceError").style.display = "none";
+
+        document.getElementById(
+            "experienceError"
+        ).style.display =
+            "none";
+
+
         nextStep();
+
     }
+
 
     function collectData() {
+
         return {
-            name: document.getElementById("name").value.trim(),
-            faculty: document.getElementById("faculty").value.trim(),
-            course: document.getElementById("course").value,
-            direction: selectedDirection,
-            experience: document.getElementById("experience").value.trim(),
-            portfolio: document.getElementById("portfolio").value.trim() || "Нет портфолио",
-            motivation: document.getElementById("motivation").value.trim()
+
+            name:
+                document
+                    .getElementById(
+                        "name"
+                    )
+                    .value
+                    .trim(),
+
+            faculty:
+                document
+                    .getElementById(
+                        "faculty"
+                    )
+                    .value
+                    .trim(),
+
+            course:
+                selectedCourse,
+
+            direction:
+                selectedDirection,
+
+            experience:
+                document
+                    .getElementById(
+                        "experience"
+                    )
+                    .value
+                    .trim(),
+
+            portfolio:
+                document
+                    .getElementById(
+                        "portfolio"
+                    )
+                    .value
+                    .trim()
+                ||
+                "Нет портфолио",
+
+            motivation:
+                document
+                    .getElementById(
+                        "motivation"
+                    )
+                    .value
+                    .trim()
+
         };
+
     }
+
 
     function showPreview() {
-        const motivation = document.getElementById("motivation").value.trim();
+
+        const motivation =
+            document
+                .getElementById(
+                    "motivation"
+                )
+                .value
+                .trim();
+
 
         if (!motivation) {
-            document.getElementById("motivationError").style.display = "block";
+
+            document.getElementById(
+                "motivationError"
+            ).style.display =
+                "block";
+
             return;
+
         }
 
-        document.getElementById("motivationError").style.display = "none";
 
-        const data = collectData();
+        document.getElementById(
+            "motivationError"
+        ).style.display =
+            "none";
 
-        document.getElementById("previewName").textContent = data.name;
-        document.getElementById("previewFaculty").textContent = data.faculty;
-        document.getElementById("previewCourse").textContent = data.course;
-        document.getElementById("previewDirection").textContent = data.direction;
-        document.getElementById("previewExperience").textContent = data.experience;
-        document.getElementById("previewPortfolio").textContent = data.portfolio;
-        document.getElementById("previewMotivation").textContent = data.motivation;
+
+        const data =
+            collectData();
+
+
+        document.getElementById(
+            "previewName"
+        ).textContent =
+            data.name;
+
+
+        document.getElementById(
+            "previewFaculty"
+        ).textContent =
+            data.faculty;
+
+
+        document.getElementById(
+            "previewCourse"
+        ).textContent =
+            data.course;
+
+
+        document.getElementById(
+            "previewDirection"
+        ).textContent =
+            data.direction;
+
+
+        document.getElementById(
+            "previewExperience"
+        ).textContent =
+            data.experience;
+
+
+        document.getElementById(
+            "previewPortfolio"
+        ).textContent =
+            data.portfolio;
+
+
+        document.getElementById(
+            "previewMotivation"
+        ).textContent =
+            data.motivation;
+
 
         currentStep = 6;
+
         updateStepUi();
+
     }
+
 
     function submitApplication() {
-        const data = collectData();
 
-        const button = document.getElementById("submitButton");
-        button.disabled = true;
-        button.textContent = "Отправляем...";
+        const data =
+            collectData();
 
-        tg.sendData(JSON.stringify(data));
+
+        const button =
+            document.getElementById(
+                "submitButton"
+            );
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "Отправляем...";
+
+
+        tg.sendData(
+            JSON.stringify(data)
+        );
+
     }
 
+
     updateStepUi();
+
 </script>
+
 </body>
 </html>
