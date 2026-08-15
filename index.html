@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
-    >
+    />
 
     <title>В курсе — вступить</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Caveat:wght@500;700&display=swap"
+        rel="stylesheet"
+    />
+
     <style>
+        @font-face {
+            font-family: "Bicubik";
+            src:
+                url("./fonts/Bicubik.woff2") format("woff2"),
+                url("./fonts/Bicubik.woff") format("woff");
+            font-display: swap;
+        }
+
         :root {
-            --bg: #f4efe6;
-            --paper: #fcfaf6;
-            --card: rgba(255, 255, 255, 0.74);
-            --text: #111111;
-            --muted: #706b64;
-            --line: #d9d2c7;
-            --accent: #111111;
+            --red: #DB3D3E;
+            --white: #FFFFFF;
+            --black: #292828;
+            --paper: #F5F3EF;
+            --paper-2: #ECE8E1;
+            --line: rgba(41, 40, 40, 0.14);
+            --text-muted: rgba(255,255,255,0.72);
+            --dark-muted: rgba(41,40,40,0.65);
+            --success: #1e7a42;
             --danger: #b3261e;
         }
 
@@ -35,98 +53,163 @@
         }
 
         body {
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Inter,
-                sans-serif;
-
+            font-family: "Rubik", sans-serif;
+            color: var(--white);
             background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(255,255,255,0.7),
-                    transparent 35%
-                ),
-                linear-gradient(
-                    180deg,
-                    #f8f5ef 0%,
-                    #f1eadf 100%
-                );
+                radial-gradient(circle at 20% 10%, rgba(255,255,255,0.06), transparent 18%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04), transparent 15%),
+                radial-gradient(circle at 30% 70%, rgba(255,255,255,0.035), transparent 16%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.03), transparent 18%),
+                linear-gradient(180deg, #1f1f1f 0%, #292828 100%);
+            padding: 18px 14px 34px;
+            overflow-x: hidden;
+        }
 
-            color: var(--text);
-
-            padding: 18px 16px 34px;
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.11;
+            background-image:
+                radial-gradient(rgba(255,255,255,0.8) 0.6px, transparent 0.6px);
+            background-size: 8px 8px;
+            mix-blend-mode: screen;
         }
 
         .app {
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .decor-star,
+        .decor-burst,
+        .decor-note {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .decor-star {
+            color: var(--white);
+            opacity: 0.9;
+            font-size: 18px;
+        }
+
+        .decor-star.one {
+            top: 80px;
+            left: 16px;
+        }
+
+        .decor-star.two {
+            top: 280px;
+            right: 22px;
+        }
+
+        .decor-star.three {
+            bottom: 160px;
+            left: 26px;
+        }
+
+        .decor-burst {
+            width: 72px;
+            height: 72px;
+            background: var(--red);
+            clip-path: polygon(
+                50% 0%, 61% 25%, 85% 15%, 75% 39%, 100% 50%, 75% 61%,
+                85% 85%, 61% 75%, 50% 100%, 39% 75%, 15% 85%, 25% 61%,
+                0% 50%, 25% 39%, 15% 15%, 39% 25%
+            );
+            opacity: 0.95;
+        }
+
+        .decor-burst.one {
+            top: 140px;
+            right: -8px;
+            transform: rotate(12deg);
+        }
+
+        .decor-burst.two {
+            bottom: 110px;
+            left: -12px;
+            transform: rotate(-15deg);
+            width: 62px;
+            height: 62px;
         }
 
         .topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            margin-bottom: 18px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
         }
 
-        .brand {
-            display: inline-flex;
+        .brand-wrap {
+            display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .brand-badge {
-            width: 36px;
-            height: 36px;
-
-            border-radius: 50%;
-
-            background: #111;
-            color: #fff;
-
+        .logo-box {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
 
-            font-weight: 800;
-            font-size: 16px;
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: brightness(0) invert(1);
         }
 
         .brand-text {
-            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-title {
+            font-size: 13px;
             font-weight: 800;
-            letter-spacing: -0.2px;
+            letter-spacing: 0.2px;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         .step-label {
             font-size: 13px;
-            color: var(--muted);
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--text-muted);
         }
 
         .progress {
             width: 100%;
             height: 6px;
-
+            background: rgba(255,255,255,0.12);
             border-radius: 999px;
-
-            background: rgba(17, 17, 17, 0.09);
-
             overflow: hidden;
-
-            margin-bottom: 28px;
+            margin-bottom: 22px;
+            position: relative;
+            z-index: 2;
         }
 
         .progress-inner {
             width: 20%;
             height: 100%;
-
-            background: #111;
-
+            background: var(--red);
             transition: width 0.25s ease;
         }
 
@@ -136,16 +219,14 @@
 
         .screen.active {
             display: block;
-
-            animation: fadeUp 0.2s ease;
+            animation: fadeUp 0.22s ease;
         }
 
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(6px);
+                transform: translateY(8px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -153,97 +234,147 @@
         }
 
         .hero {
-            background:
-                linear-gradient(
-                    145deg,
-                    #111111 0%,
-                    #1f1f1f 100%
-                );
-
-            color: #ffffff;
-
+            position: relative;
+            padding: 22px;
             border-radius: 28px;
+            overflow: hidden;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+                rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+            margin-bottom: 18px;
+        }
 
-            padding: 24px;
-
-            margin-bottom: 22px;
-
-            min-height: 280px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            box-shadow:
-                0 16px 40px rgba(0,0,0,0.12);
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(115deg, transparent 0 20%, rgba(255,255,255,0.05) 20% 38%, transparent 38% 100%);
+            pointer-events: none;
         }
 
         .hero-top {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 26px;
+            position: relative;
+            z-index: 2;
         }
 
-        .hero-mark {
-            font-size: 54px;
-            line-height: 1;
+        .hero-tag {
+            display: inline-block;
+            background: var(--white);
+            color: var(--black);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
         }
 
         .hero-note {
-            font-size: 13px;
-            opacity: 0.68;
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.6px;
-        }
-
-        h1 {
-            margin: 0 0 14px;
-
-            font-size: 37px;
-            line-height: 0.98;
-
-            letter-spacing: -1.6px;
-        }
-
-        h2 {
-            margin: 0 0 12px;
-
+            font-family: "Caveat", cursive;
             font-size: 30px;
-            line-height: 1.02;
-
-            letter-spacing: -1px;
+            line-height: 1;
+            color: var(--white);
+            transform: rotate(-6deg);
+            opacity: 0.95;
         }
 
-        .subtitle,
-        .description {
-            color: var(--muted);
-
-            font-size: 16px;
-            line-height: 1.5;
+        .hero-title {
+            font-family: "Bicubik", "Rubik", sans-serif;
+            font-size: clamp(32px, 7vw, 54px);
+            line-height: 0.94;
+            letter-spacing: 0.3px;
+            margin: 0 0 12px;
+            text-transform: uppercase;
         }
 
-        .hero .subtitle {
-            color: rgba(255,255,255,0.72);
+        .hero-title .red {
+            color: var(--red);
         }
 
-        .description {
-            margin: 0 0 26px;
+        .hero-text {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.55;
+            max-width: 420px;
         }
 
-        .panel {
-            background: rgba(255,255,255,0.58);
+        .hero-strip {
+            margin-top: 18px;
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 9px 14px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+        }
 
-            border:
-                1px solid
-                rgba(17,17,17,0.08);
-
-            border-radius: 22px;
-
+        .paper-card,
+        .preview-card {
+            background: var(--paper);
+            color: var(--black);
+            border-radius: 26px;
             padding: 18px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.14);
+            position: relative;
+            border: 1px solid rgba(41,40,40,0.08);
+        }
 
-            backdrop-filter: blur(8px);
+        .paper-card::before,
+        .preview-card::before {
+            content: "";
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            top: -8px;
+            height: 14px;
+            background:
+                linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
+            opacity: 0.45;
+            border-radius: 999px;
+            filter: blur(2px);
+        }
+
+        .section-kicker {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            margin: 0 0 10px;
+            font-family: "Bicubik", "Rubik", sans-serif;
+            font-size: clamp(24px, 5.6vw, 38px);
+            line-height: 0.98;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .section-title .red {
+            color: var(--red);
+        }
+
+        .section-text {
+            margin: 0;
+            color: var(--dark-muted);
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .paper-divider {
+            height: 1px;
+            background: rgba(41,40,40,0.09);
+            margin: 18px 0 2px;
         }
 
         .field {
@@ -252,47 +383,30 @@
 
         label {
             display: block;
-
+            margin-bottom: 8px;
             font-size: 14px;
             font-weight: 700;
-
-            margin-bottom: 8px;
         }
 
         input,
         textarea {
             width: 100%;
-
-            border:
-                1px solid
-                var(--line);
-
-            border-radius: 16px;
-
-            background:
-                rgba(255,255,255,0.86);
-
-            color: var(--text);
-
+            border: 1.5px solid rgba(41,40,40,0.14);
+            border-radius: 18px;
+            background: rgba(255,255,255,0.92);
+            color: var(--black);
             font: inherit;
-            font-size: 16px;
-
+            font-size: 15px;
             padding: 15px 16px;
-
             outline: none;
-
             transition: 0.15s ease;
         }
 
         input:focus,
         textarea:focus {
-            border-color: #111;
-
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(219,61,62,0.08);
             background: #fff;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(17,17,17,0.05);
         }
 
         textarea {
@@ -301,55 +415,43 @@
         }
 
         .hint {
-            margin-top: 6px;
-
-            color: var(--muted);
-
+            margin-top: 7px;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.45;
+            color: var(--dark-muted);
+        }
+
+        .handwrite {
+            font-family: "Caveat", cursive;
+            font-size: 28px;
+            color: var(--red);
+            line-height: 1;
         }
 
         .course-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 
         .course-card {
-            background:
-                rgba(255,255,255,0.82);
-
-            color: #111;
-
-            border:
-                1px solid
-                var(--line);
-
-            border-radius: 16px;
-
+            background: var(--white);
+            color: var(--black);
+            border: 1.5px solid rgba(41,40,40,0.12);
+            border-radius: 18px;
             padding: 16px;
-
             font-size: 16px;
             font-weight: 800;
-
-            box-shadow: none;
-
             cursor: pointer;
-
             transition: 0.15s ease;
-        }
-
-        .course-card:hover {
-            background: #fff;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.04);
         }
 
         .course-card.selected {
-            background: #111;
-            color: #fff;
-            border-color: #111;
+            background: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+            transform: translateY(-1px);
         }
 
         .course-other {
@@ -358,95 +460,83 @@
 
         .directions {
             display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-
-            margin-bottom: 8px;
         }
 
         .direction {
-            border:
-                1px solid
-                var(--line);
-
-            border-radius: 18px;
-
-            background:
-                rgba(255,255,255,0.78);
-
-            min-height: 108px;
-
+            min-height: 112px;
+            background: var(--white);
+            border: 1.5px solid rgba(41,40,40,0.12);
+            border-radius: 22px;
             padding: 16px;
-
             cursor: pointer;
-
             transition: 0.15s ease;
-
+            box-shadow: 0 6px 14px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
-            box-shadow:
-                0 4px 14px
-                rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
         }
 
-        .direction:hover {
-            transform: translateY(-1px);
-            background: #fff;
+        .direction::after {
+            content: "";
+            position: absolute;
+            right: -18px;
+            bottom: -18px;
+            width: 56px;
+            height: 56px;
+            background: rgba(219,61,62,0.08);
+            border-radius: 50%;
         }
 
         .direction.selected {
-            background: #111;
-            border-color: #111;
-            color: #fff;
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+            transform: translateY(-1px);
+        }
 
-            box-shadow:
-                0 12px 24px
-                rgba(0,0,0,0.12);
+        .direction.selected::after {
+            background: rgba(219,61,62,0.95);
         }
 
         .direction-icon {
-            font-size: 22px;
+            font-size: 23px;
             line-height: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .direction-name {
             font-weight: 800;
             font-size: 15px;
-            line-height: 1.15;
+            line-height: 1.18;
+            position: relative;
+            z-index: 1;
         }
 
         .actions {
-            margin-top: 28px;
+            margin-top: 18px;
         }
 
         button {
             width: 100%;
-
             border: none;
-            border-radius: 16px;
-
+            border-radius: 18px;
             padding: 16px 18px;
-
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
-
             cursor: pointer;
-
             transition: 0.15s ease;
+            font-family: "Rubik", sans-serif;
         }
 
         .primary-btn {
-            background: #111;
-            color: #fff;
-
-            box-shadow:
-                0 12px 24px
-                rgba(0,0,0,0.12);
+            background: var(--red);
+            color: var(--white);
+            box-shadow: 0 14px 26px rgba(219,61,62,0.24);
         }
 
         .primary-btn:hover {
@@ -454,1315 +544,581 @@
         }
 
         .primary-btn:disabled {
-            opacity: 0.5;
-
-            cursor: default;
-
+            opacity: 0.6;
             transform: none;
+            cursor: default;
         }
 
         .ghost-btn {
             margin-top: 8px;
-
-            background: transparent;
-            color: var(--text);
-
-            border:
-                1px solid
-                rgba(17,17,17,0.08);
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.14);
         }
 
         .error {
             display: none;
-
             margin-top: 10px;
-
-            color: var(--danger);
-
+            color: #ffb1b2;
             font-size: 13px;
-            line-height: 1.4;
-
             font-weight: 600;
+            line-height: 1.4;
         }
 
-        .mini-tag {
-            display: inline-block;
-
-            padding: 8px 12px;
-
-            border-radius: 999px;
-
-            background:
-                rgba(17,17,17,0.06);
-
-            font-size: 13px;
-            font-weight: 700;
-
-            margin-bottom: 14px;
+        .preview-card {
+            padding: 18px;
         }
 
-        .final-card {
-            background:
-                rgba(255,255,255,0.72);
-
-            border-radius: 24px;
-
-            padding: 20px;
-
-            border:
-                1px solid
-                rgba(17,17,17,0.08);
-        }
-
-        .final-list {
+        .preview-list {
             display: grid;
-            gap: 12px;
+            gap: 11px;
         }
 
-        .final-item {
-            padding: 14px 15px;
-
-            border-radius: 16px;
-
-            background:
-                rgba(255,255,255,0.72);
-
-            border:
-                1px solid
-                rgba(17,17,17,0.06);
+        .preview-item {
+            background: rgba(255,255,255,0.84);
+            border: 1px solid rgba(41,40,40,0.07);
+            border-radius: 18px;
+            padding: 13px 14px;
         }
 
-        .final-item-title {
-            font-size: 12px;
-
-            color: var(--muted);
-
-            margin-bottom: 4px;
-
+        .preview-item-title {
+            font-size: 11px;
             font-weight: 700;
-
+            color: var(--dark-muted);
             text-transform: uppercase;
-
-            letter-spacing: 0.3px;
+            letter-spacing: 0.4px;
+            margin-bottom: 5px;
         }
 
-        .final-item-value {
+        .preview-item-value {
             font-size: 15px;
             font-weight: 700;
-
-            line-height: 1.4;
-
+            line-height: 1.42;
             word-break: break-word;
         }
 
-        .footer-note {
-            margin-top: 18px;
-
-            color: var(--muted);
-
+        .preview-footer {
+            margin-top: 16px;
             font-size: 13px;
+            color: var(--dark-muted);
             line-height: 1.45;
         }
 
-        @media (max-width: 420px) {
+        .step-note {
+            margin-top: 10px;
+            font-family: "Caveat", cursive;
+            font-size: 28px;
+            color: var(--red);
+            transform: rotate(-3deg);
+        }
 
+        @media (max-width: 430px) {
             .directions {
                 grid-template-columns: 1fr;
             }
 
-            h1 {
-                font-size: 34px;
+            .hero-title {
+                font-size: 31px;
             }
 
-            h2 {
-                font-size: 28px;
+            .section-title {
+                font-size: 26px;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="decor-star one">★</div>
+    <div class="decor-star two">★</div>
+    <div class="decor-star three">★</div>
+    <div class="decor-burst one"></div>
+    <div class="decor-burst two"></div>
 
-<div class="app">
+    <div class="app">
 
-    <div class="topbar">
+        <div class="topbar">
+            <div class="brand-wrap">
+                <div class="logo-box">
+                    <img src="./logo.png" alt="В курсе" />
+                </div>
 
-        <div class="brand">
-
-            <div class="brand-badge">
-                В
+                <div class="brand-text">
+                    <div class="brand-title">В курсе media RUDN</div>
+                    <div class="brand-subtitle">набор в команду</div>
+                </div>
             </div>
 
-            <div class="brand-text">
-                В курсе media RUDN
+            <div class="step-label" id="stepLabel">1 / 5</div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-inner" id="progress"></div>
+        </div>
+
+        <!-- STEP 1 -->
+        <section class="screen active" data-step="1">
+            <div class="hero">
+                <div class="hero-top">
+                    <div class="hero-tag">Твой вход в команду</div>
+                    <div class="hero-note">что это?</div>
+                </div>
+
+                <div>
+                    <h1 class="hero-title">
+                        Хочешь<br />
+                        быть <span class="red">в курсе</span><br />
+                        контента?
+                    </h1>
+
+                    <div class="hero-text">
+                        Расскажи немного о себе, выбери направление —
+                        и заявка сразу улетит нашей команде.
+                    </div>
+
+                    <div class="hero-strip">
+                        Креаторы · Дизайн · Фото · Видео · SMM
+                    </div>
+                </div>
             </div>
 
-        </div>
+            <div class="paper-card">
+                <div class="section-kicker">Как всё пройдёт</div>
+                <h2 class="section-title">
+                    Быстро<br />
+                    и <span class="red">по делу</span>
+                </h2>
 
-        <div
-            class="step-label"
-            id="stepLabel"
-        >
-            1 / 5
-        </div>
+                <p class="section-text">
+                    Сначала ты рассказываешь о себе. Потом выбираешь направление,
+                    делишься опытом и мотивацией. После этого заявка попадает прямо нам.
+                </p>
+
+                <div class="paper-divider"></div>
+                <div class="step-note">занимает пару минут 👀</div>
+            </div>
+
+            <div class="actions">
+                <button class="primary-btn" onclick="nextStep()">Начать →</button>
+            </div>
+        </section>
+
+        <!-- STEP 2 -->
+        <section class="screen" data-step="2">
+            <div class="paper-card">
+                <div class="section-kicker">Шаг 1</div>
+                <h2 class="section-title">
+                    Давай<br />
+                    <span class="red">познакомимся</span>
+                </h2>
+
+                <p class="section-text" style="margin-bottom: 18px;">
+                    Нужна только базовая информация.
+                </p>
+
+                <div class="field">
+                    <label for="name">Как тебя зовут?</label>
+                    <input
+                        id="name"
+                        type="text"
+                        placeholder="Имя и фамилия"
+                    />
+                </div>
+
+                <div class="field">
+                    <label for="faculty">Факультет / институт</label>
+                    <input
+                        id="faculty"
+                        type="text"
+                        placeholder="Например, ИИЯ"
+                    />
+                </div>
+
+                <div class="field" style="margin-bottom: 0;">
+                    <label>Курс</label>
+
+                    <div class="course-grid">
+                        <button type="button" class="course-card" data-course="1 курс">1</button>
+                        <button type="button" class="course-card" data-course="2 курс">2</button>
+                        <button type="button" class="course-card" data-course="3 курс">3</button>
+                        <button type="button" class="course-card" data-course="4 курс">4</button>
+                        <button type="button" class="course-card" data-course="5 курс">5</button>
+                        <button type="button" class="course-card" data-course="6 курс">6</button>
+                        <button type="button" class="course-card course-other" data-course="Другое">
+                            Другое
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error" id="personalError">
+                Заполни имя, факультет и выбери курс.
+            </div>
+
+            <div class="actions">
+                <button class="primary-btn" onclick="validatePersonal()">Продолжить →</button>
+                <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+            </div>
+        </section>
+
+        <!-- STEP 3 -->
+        <section class="screen" data-step="3">
+            <div class="paper-card">
+                <div class="section-kicker">Шаг 2</div>
+                <h2 class="section-title">
+                    Куда тебе<br />
+                    <span class="red">интереснее</span>?
+                </h2>
+
+                <p class="section-text" style="margin-bottom: 18px;">
+                    Выбери направление, в котором тебе хотелось бы развиваться.
+                </p>
+
+                <div class="directions">
+                    <div class="direction" data-direction="Креаторы" onclick="selectDirection(this)">
+                        <div class="direction-icon">💡</div>
+                        <div class="direction-name">Креаторы</div>
+                    </div>
+
+                    <div class="direction" data-direction="Дизайн" onclick="selectDirection(this)">
+                        <div class="direction-icon">🎨</div>
+                        <div class="direction-name">Дизайн</div>
+                    </div>
+
+                    <div class="direction" data-direction="Фото" onclick="selectDirection(this)">
+                        <div class="direction-icon">📸</div>
+                        <div class="direction-name">Фото</div>
+                    </div>
+
+                    <div class="direction" data-direction="Видео" onclick="selectDirection(this)">
+                        <div class="direction-icon">🎥</div>
+                        <div class="direction-name">Видео</div>
+                    </div>
+
+                    <div class="direction" data-direction="SMM" onclick="selectDirection(this)">
+                        <div class="direction-icon">📱</div>
+                        <div class="direction-name">SMM</div>
+                    </div>
+                </div>
+
+                <div class="step-note" style="margin-top: 14px;">выбери то, что правда ближе</div>
+            </div>
+
+            <div class="error" id="directionError">
+                Выбери хотя бы одно направление.
+            </div>
+
+            <div class="actions">
+                <button class="primary-btn" onclick="validateDirection()">Это моё →</button>
+                <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+            </div>
+        </section>
+
+        <!-- STEP 4 -->
+        <section class="screen" data-step="4">
+            <div class="paper-card">
+                <div class="section-kicker">Шаг 3</div>
+                <h2 class="section-title">
+                    Что ты уже<br />
+                    <span class="red">умеешь</span>?
+                </h2>
+
+                <p class="section-text" style="margin-bottom: 18px;">
+                    Необязательно быть суперпрофи. Просто честно расскажи о своём опыте.
+                </p>
+
+                <div class="field">
+                    <label for="experience">Опыт</label>
+                    <textarea
+                        id="experience"
+                        placeholder="Проекты, навыки, студенческая деятельность, идеи, опыт работы..."
+                    ></textarea>
+                </div>
+
+                <div class="field" style="margin-bottom: 0;">
+                    <label for="portfolio">Портфолио / соцсети / работы</label>
+                    <input
+                        id="portfolio"
+                        type="text"
+                        placeholder="Ссылка или оставь поле пустым"
+                    />
+                    <div class="hint">
+                        Если пока нечего приложить — не страшно.
+                    </div>
+                </div>
+            </div>
+
+            <div class="error" id="experienceError">
+                Расскажи хотя бы немного о своём опыте.
+            </div>
+
+            <div class="actions">
+                <button class="primary-btn" onclick="validateExperience()">Дальше →</button>
+                <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+            </div>
+        </section>
+
+        <!-- STEP 5 -->
+        <section class="screen" data-step="5">
+            <div class="paper-card">
+                <div class="section-kicker">Шаг 4</div>
+                <h2 class="section-title">
+                    И последнее —<br />
+                    <span class="red">зачем тебе</span> это?
+                </h2>
+
+                <p class="section-text" style="margin-bottom: 18px;">
+                    Почему ты хочешь быть частью «В курсе»?
+                </p>
+
+                <div class="field" style="margin-bottom: 0;">
+                    <label for="motivation">Мотивация</label>
+                    <textarea
+                        id="motivation"
+                        placeholder="Например: хочу создавать контент, развиваться в медиа, быть частью команды..."
+                    ></textarea>
+                </div>
+
+                <div class="step-note" style="margin-top: 14px;">лучше честно, чем идеально</div>
+            </div>
+
+            <div class="error" id="motivationError">
+                Напиши, почему ты хочешь во «В курсе».
+            </div>
+
+            <div class="actions">
+                <button class="primary-btn" onclick="showPreview()">Проверить заявку →</button>
+                <button class="ghost-btn" onclick="prevStep()">← Назад</button>
+            </div>
+        </section>
+
+        <!-- PREVIEW -->
+        <section class="screen" data-step="6">
+            <div class="preview-card">
+                <div class="section-kicker">Почти готово</div>
+
+                <h2 class="section-title">
+                    Проверь<br />
+                    <span class="red">заявку</span>
+                </h2>
+
+                <p class="section-text" style="margin-bottom: 18px;">
+                    Если всё верно — отправляй.
+                </p>
+
+                <div class="preview-list">
+                    <div class="preview-item">
+                        <div class="preview-item-title">Имя</div>
+                        <div class="preview-item-value" id="previewName">—</div>
+                    </div>
+
+                    <div class="preview-item">
+                        <div class="preview-item-title">Факультет / институт</div>
+                        <div class="preview-item-value" id="previewFaculty">—</div>
+                    </div>
+
+                    <div class="preview-item">
+                        <div class="preview-item-title">Курс</div>
+                        <div class="preview-item-value" id="previewCourse">—</div>
+                    </div>
+
+                    <div class="preview-item">
+                        <div class="preview-item-title">Направление</div>
+                        <div class="preview-item-value" id="previewDirection">—</div>
+                    </div>
+
+                    <div class="preview-item">
+                        <div class="preview-item-title">Опыт</div>
+                        <div class="preview-item-value" id="previewExperience">—</div>
+                    </div>
+
+                    <div class="preview-item">
+                        <div class="preview-item-title">Портфолио</div>
+                        <div class="preview-item-value" id="previewPortfolio">—</div>
+                    </div>
+
+                    <div class="preview-item">
+                        <div class="preview-item-title">Мотивация</div>
+                        <div class="preview-item-value" id="previewMotivation">—</div>
+                    </div>
+                </div>
+
+                <div class="preview-footer">
+                    После отправки заявка сразу попадёт команде «В курсе».
+                </div>
+            </div>
+
+            <div class="actions">
+                <button
+                    class="primary-btn"
+                    id="submitButton"
+                    onclick="submitApplication()"
+                >
+                    Отправить заявку
+                </button>
+
+                <button class="ghost-btn" onclick="backFromPreview()">← Изменить</button>
+            </div>
+        </section>
 
     </div>
 
-
-    <div class="progress">
-
-        <div
-            class="progress-inner"
-            id="progress"
-        ></div>
-
-    </div>
-
-
-
-    <!-- STEP 1 -->
-
-    <section
-        class="screen active"
-        data-step="1"
-    >
-
-        <div class="hero">
-
-            <div class="hero-top">
-
-                <div class="hero-note">
-                    Набор в команду
-                </div>
-
-                <div class="hero-mark">
-                    👀
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <h1>
-                    Хочешь быть по эту сторону контента?
-                </h1>
-
-                <div class="subtitle">
-                    Расскажи немного о себе,
-                    выбери направление —
-                    и твоя заявка сразу попадёт
-                    команде «В курсе».
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="panel">
-
-            <div class="mini-tag">
-                Что будет дальше
-            </div>
-
-            <div
-                class="description"
-                style="margin-bottom: 0;"
-            >
-                1. Ты заполняешь короткую заявку.<br>
-                2. Мы смотрим, что тебе ближе.<br>
-                3. Если всё мэтчится — зовём дальше 👀
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="primary-btn"
-                onclick="nextStep()"
-            >
-                Начать →
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- STEP 2 -->
-
-    <section
-        class="screen"
-        data-step="2"
-    >
-
-        <h2>
-            Для начала познакомимся
-        </h2>
-
-        <p class="description">
-            Нужна только базовая информация.
-        </p>
-
-
-        <div class="panel">
-
-            <div class="field">
-
-                <label for="name">
-                    Как тебя зовут?
-                </label>
-
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Имя и фамилия"
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label for="faculty">
-                    Факультет / институт
-                </label>
-
-                <input
-                    id="faculty"
-                    type="text"
-                    placeholder="Например, ИИЯ"
-                >
-
-            </div>
-
-
-            <div
-                class="field"
-                style="margin-bottom: 0;"
-            >
-
-                <label>
-                    Курс
-                </label>
-
-                <div class="course-grid">
-
-                    <button
-                        type="button"
-                        class="course-card"
-                        data-course="1 курс"
-                    >
-                        1
-                    </button>
-
-                    <button
-                        type="button"
-                        class="course-card"
-                        data-course="2 курс"
-                    >
-                        2
-                    </button>
-
-                    <button
-                        type="button"
-                        class="course-card"
-                        data-course="3 курс"
-                    >
-                        3
-                    </button>
-
-                    <button
-                        type="button"
-                        class="course-card"
-                        data-course="4 курс"
-                    >
-                        4
-                    </button>
-
-                    <button
-                        type="button"
-                        class="course-card"
-                        data-course="5 курс"
-                    >
-                        5
-                    </button>
-
-                    <button
-                        type="button"
-                        class="course-card"
-                        data-course="6 курс"
-                    >
-                        6
-                    </button>
-
-                    <button
-                        type="button"
-                        class="course-card course-other"
-                        data-course="Другое"
-                    >
-                        Другое
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="error"
-            id="personalError"
-        >
-            Заполни имя, факультет и выбери курс.
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="primary-btn"
-                onclick="validatePersonal()"
-            >
-                Продолжить →
-            </button>
-
-            <button
-                class="ghost-btn"
-                onclick="prevStep()"
-            >
-                ← Назад
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- STEP 3 -->
-
-    <section
-        class="screen"
-        data-step="3"
-    >
-
-        <h2>
-            Куда хочешь?
-        </h2>
-
-        <p class="description">
-            Выбери направление,
-            которое тебе ближе всего.
-        </p>
-
-
-        <div class="directions">
-
-            <div
-                class="direction"
-                data-direction="Креаторы"
-                onclick="selectDirection(this)"
-            >
-
-                <div class="direction-icon">
-                    💡
-                </div>
-
-                <div class="direction-name">
-                    Креаторы
-                </div>
-
-            </div>
-
-
-            <div
-                class="direction"
-                data-direction="Дизайн"
-                onclick="selectDirection(this)"
-            >
-
-                <div class="direction-icon">
-                    🎨
-                </div>
-
-                <div class="direction-name">
-                    Дизайн
-                </div>
-
-            </div>
-
-
-            <div
-                class="direction"
-                data-direction="Фото"
-                onclick="selectDirection(this)"
-            >
-
-                <div class="direction-icon">
-                    📸
-                </div>
-
-                <div class="direction-name">
-                    Фото
-                </div>
-
-            </div>
-
-
-            <div
-                class="direction"
-                data-direction="Видео"
-                onclick="selectDirection(this)"
-            >
-
-                <div class="direction-icon">
-                    🎥
-                </div>
-
-                <div class="direction-name">
-                    Видео
-                </div>
-
-            </div>
-
-
-            <div
-                class="direction"
-                data-direction="SMM"
-                onclick="selectDirection(this)"
-            >
-
-                <div class="direction-icon">
-                    📱
-                </div>
-
-                <div class="direction-name">
-                    SMM
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="error"
-            id="directionError"
-        >
-            Выбери хотя бы одно направление.
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="primary-btn"
-                onclick="validateDirection()"
-            >
-                Это моё →
-            </button>
-
-            <button
-                class="ghost-btn"
-                onclick="prevStep()"
-            >
-                ← Назад
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- STEP 4 -->
-
-    <section
-        class="screen"
-        data-step="4"
-    >
-
-        <h2>
-            Теперь — про опыт
-        </h2>
-
-        <p class="description">
-            Необязательно быть суперпрофи.
-            Просто честно расскажи,
-            что у тебя уже есть.
-        </p>
-
-
-        <div class="panel">
-
-            <div class="field">
-
-                <label for="experience">
-                    Что ты уже умеешь?
-                </label>
-
-                <textarea
-                    id="experience"
-                    placeholder="Проекты, студенческая деятельность, навыки, идеи, опыт работы..."
-                ></textarea>
-
-            </div>
-
-
-            <div
-                class="field"
-                style="margin-bottom: 0;"
-            >
-
-                <label for="portfolio">
-                    Есть что показать?
-                </label>
-
-                <input
-                    id="portfolio"
-                    type="text"
-                    placeholder="Ссылка на портфолио / соцсети / работы"
-                >
-
-                <div class="hint">
-                    Если пока ничего нет —
-                    просто оставь поле пустым.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="error"
-            id="experienceError"
-        >
-            Расскажи хотя бы немного о своём опыте.
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="primary-btn"
-                onclick="validateExperience()"
-            >
-                Дальше →
-            </button>
-
-            <button
-                class="ghost-btn"
-                onclick="prevStep()"
-            >
-                ← Назад
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- STEP 5 -->
-
-    <section
-        class="screen"
-        data-step="5"
-    >
-
-        <h2>
-            Последний шаг
-        </h2>
-
-        <p class="description">
-            Почему тебе хочется
-            быть частью «В курсе»?
-        </p>
-
-
-        <div class="panel">
-
-            <div
-                class="field"
-                style="margin-bottom: 0;"
-            >
-
-                <label for="motivation">
-                    Твоя мотивация
-                </label>
-
-                <textarea
-                    id="motivation"
-                    placeholder="Например: хочу создавать контент, развиваться в медиа, быть частью команды..."
-                ></textarea>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="error"
-            id="motivationError"
-        >
-            Напиши, почему ты хочешь во «В курсе».
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="primary-btn"
-                onclick="showPreview()"
-            >
-                Проверить заявку →
-            </button>
-
-            <button
-                class="ghost-btn"
-                onclick="prevStep()"
-            >
-                ← Назад
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- PREVIEW -->
-
-    <section
-        class="screen"
-        data-step="6"
-    >
-
-        <h2>
-            Проверь заявку
-        </h2>
-
-        <p class="description">
-            Если всё верно —
-            отправляй.
-        </p>
-
-
-        <div class="final-card">
-
-            <div class="final-list">
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Имя
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewName"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Факультет / институт
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewFaculty"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Курс
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewCourse"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Направление
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewDirection"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Опыт
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewExperience"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Портфолио
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewPortfolio"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-
-                <div class="final-item">
-
-                    <div class="final-item-title">
-                        Мотивация
-                    </div>
-
-                    <div
-                        class="final-item-value"
-                        id="previewMotivation"
-                    >
-                        —
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="footer-note">
-                После отправки заявка
-                сразу уйдёт команде «В курсе».
-            </div>
-
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                class="primary-btn"
-                id="submitButton"
-                onclick="submitApplication()"
-            >
-                Отправить заявку
-            </button>
-
-            <button
-                class="ghost-btn"
-                onclick="backFromPreview()"
-            >
-                ← Изменить
-            </button>
-
-        </div>
-
-    </section>
-
-</div>
-
-
-<script>
-
-    const tg =
-        window.Telegram.WebApp;
-
-    tg.ready();
-    tg.expand();
-
-
-    let currentStep = 1;
-
-    let selectedDirection = null;
-
-    let selectedCourse = null;
-
-    const totalDisplaySteps = 5;
-
-
-    document
-        .querySelectorAll(".course-card")
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    document
-                        .querySelectorAll(
-                            ".course-card"
-                        )
-                        .forEach(item => {
-
-                            item.classList.remove(
-                                "selected"
-                            );
-
-                        });
-
-
-                    this.classList.add(
-                        "selected"
-                    );
-
-
-                    selectedCourse =
-                        this.dataset.course;
-
-
-                    document.getElementById(
-                        "personalError"
-                    ).style.display =
-                        "none";
-
-                }
-            );
-
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        let currentStep = 1;
+        let selectedDirection = null;
+        let selectedCourse = null;
+        const totalDisplaySteps = 5;
+
+        document.querySelectorAll(".course-card").forEach(button => {
+            button.addEventListener("click", function () {
+                document.querySelectorAll(".course-card").forEach(item => {
+                    item.classList.remove("selected");
+                });
+
+                this.classList.add("selected");
+                selectedCourse = this.dataset.course;
+                document.getElementById("personalError").style.display = "none";
+            });
         });
 
-
-    function updateStepUi() {
-
-        document
-            .querySelectorAll(".screen")
-            .forEach(screen => {
-
-                screen.classList.remove(
-                    "active"
-                );
-
+        function updateStepUi() {
+            document.querySelectorAll(".screen").forEach(screen => {
+                screen.classList.remove("active");
             });
 
+            const activeScreen = document.querySelector(`[data-step="${currentStep}"]`);
+            if (activeScreen) {
+                activeScreen.classList.add("active");
+            }
 
-        const activeScreen =
-            document.querySelector(
-                `[data-step="${currentStep}"]`
-            );
+            const displayStep = currentStep > 5 ? 5 : currentStep;
+            document.getElementById("stepLabel").textContent = `${displayStep} / ${totalDisplaySteps}`;
 
-
-        if (activeScreen) {
-
-            activeScreen.classList.add(
-                "active"
-            );
-
-        }
-
-
-        const displayStep =
-            currentStep > 5
-                ? 5
-                : currentStep;
-
-
-        document.getElementById(
-            "stepLabel"
-        ).textContent =
-            `${displayStep} / ${totalDisplaySteps}`;
-
-
-        const progressPercent =
-            currentStep === 6
+            const progressPercent = currentStep === 6
                 ? 100
-                : (
-                    displayStep /
-                    totalDisplaySteps
-                ) * 100;
+                : (displayStep / totalDisplaySteps) * 100;
 
+            document.getElementById("progress").style.width = `${progressPercent}%`;
 
-        document.getElementById(
-            "progress"
-        ).style.width =
-            `${progressPercent}%`;
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
 
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-
-    function nextStep() {
-
-        currentStep++;
-
-        updateStepUi();
-
-    }
-
-
-    function prevStep() {
-
-        if (currentStep > 1) {
-
-            currentStep--;
-
+        function nextStep() {
+            currentStep++;
             updateStepUi();
-
         }
 
-    }
-
-
-    function backFromPreview() {
-
-        currentStep = 5;
-
-        updateStepUi();
-
-    }
-
-
-    function validatePersonal() {
-
-        const name =
-            document
-                .getElementById("name")
-                .value
-                .trim();
-
-
-        const faculty =
-            document
-                .getElementById("faculty")
-                .value
-                .trim();
-
-
-        if (
-            !name ||
-            !faculty ||
-            !selectedCourse
-        ) {
-
-            document.getElementById(
-                "personalError"
-            ).style.display =
-                "block";
-
-            return;
-
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepUi();
+            }
         }
 
+        function backFromPreview() {
+            currentStep = 5;
+            updateStepUi();
+        }
 
-        document.getElementById(
-            "personalError"
-        ).style.display =
-            "none";
+        function validatePersonal() {
+            const name = document.getElementById("name").value.trim();
+            const faculty = document.getElementById("faculty").value.trim();
 
+            if (!name || !faculty || !selectedCourse) {
+                document.getElementById("personalError").style.display = "block";
+                return;
+            }
 
-        nextStep();
+            document.getElementById("personalError").style.display = "none";
+            nextStep();
+        }
 
-    }
-
-
-    function selectDirection(
-        element
-    ) {
-
-        document
-            .querySelectorAll(
-                ".direction"
-            )
-            .forEach(card => {
-
-                card.classList.remove(
-                    "selected"
-                );
-
+        function selectDirection(element) {
+            document.querySelectorAll(".direction").forEach(card => {
+                card.classList.remove("selected");
             });
 
-
-        element.classList.add(
-            "selected"
-        );
-
-
-        selectedDirection =
-            element.dataset.direction;
-
-
-        document.getElementById(
-            "directionError"
-        ).style.display =
-            "none";
-
-    }
-
-
-    function validateDirection() {
-
-        if (!selectedDirection) {
-
-            document.getElementById(
-                "directionError"
-            ).style.display =
-                "block";
-
-            return;
-
+            element.classList.add("selected");
+            selectedDirection = element.dataset.direction;
+            document.getElementById("directionError").style.display = "none";
         }
 
+        function validateDirection() {
+            if (!selectedDirection) {
+                document.getElementById("directionError").style.display = "block";
+                return;
+            }
 
-        document.getElementById(
-            "directionError"
-        ).style.display =
-            "none";
-
-
-        nextStep();
-
-    }
-
-
-    function validateExperience() {
-
-        const experience =
-            document
-                .getElementById(
-                    "experience"
-                )
-                .value
-                .trim();
-
-
-        if (!experience) {
-
-            document.getElementById(
-                "experienceError"
-            ).style.display =
-                "block";
-
-            return;
-
+            document.getElementById("directionError").style.display = "none";
+            nextStep();
         }
 
+        function validateExperience() {
+            const experience = document.getElementById("experience").value.trim();
 
-        document.getElementById(
-            "experienceError"
-        ).style.display =
-            "none";
+            if (!experience) {
+                document.getElementById("experienceError").style.display = "block";
+                return;
+            }
 
-
-        nextStep();
-
-    }
-
-
-    function collectData() {
-
-        return {
-
-            name:
-                document
-                    .getElementById(
-                        "name"
-                    )
-                    .value
-                    .trim(),
-
-            faculty:
-                document
-                    .getElementById(
-                        "faculty"
-                    )
-                    .value
-                    .trim(),
-
-            course:
-                selectedCourse,
-
-            direction:
-                selectedDirection,
-
-            experience:
-                document
-                    .getElementById(
-                        "experience"
-                    )
-                    .value
-                    .trim(),
-
-            portfolio:
-                document
-                    .getElementById(
-                        "portfolio"
-                    )
-                    .value
-                    .trim()
-                ||
-                "Нет портфолио",
-
-            motivation:
-                document
-                    .getElementById(
-                        "motivation"
-                    )
-                    .value
-                    .trim()
-
-        };
-
-    }
-
-
-    function showPreview() {
-
-        const motivation =
-            document
-                .getElementById(
-                    "motivation"
-                )
-                .value
-                .trim();
-
-
-        if (!motivation) {
-
-            document.getElementById(
-                "motivationError"
-            ).style.display =
-                "block";
-
-            return;
-
+            document.getElementById("experienceError").style.display = "none";
+            nextStep();
         }
 
+        function collectData() {
+            return {
+                name: document.getElementById("name").value.trim(),
+                faculty: document.getElementById("faculty").value.trim(),
+                course: selectedCourse,
+                direction: selectedDirection,
+                experience: document.getElementById("experience").value.trim(),
+                portfolio: document.getElementById("portfolio").value.trim() || "Нет портфолио",
+                motivation: document.getElementById("motivation").value.trim()
+            };
+        }
 
-        document.getElementById(
-            "motivationError"
-        ).style.display =
-            "none";
+        function showPreview() {
+            const motivation = document.getElementById("motivation").value.trim();
 
+            if (!motivation) {
+                document.getElementById("motivationError").style.display = "block";
+                return;
+            }
 
-        const data =
-            collectData();
+            document.getElementById("motivationError").style.display = "none";
 
+            const data = collectData();
 
-        document.getElementById(
-            "previewName"
-        ).textContent =
-            data.name;
+            document.getElementById("previewName").textContent = data.name;
+            document.getElementById("previewFaculty").textContent = data.faculty;
+            document.getElementById("previewCourse").textContent = data.course;
+            document.getElementById("previewDirection").textContent = data.direction;
+            document.getElementById("previewExperience").textContent = data.experience;
+            document.getElementById("previewPortfolio").textContent = data.portfolio;
+            document.getElementById("previewMotivation").textContent = data.motivation;
 
+            currentStep = 6;
+            updateStepUi();
+        }
 
-        document.getElementById(
-            "previewFaculty"
-        ).textContent =
-            data.faculty;
+        function submitApplication() {
+            const data = collectData();
 
+            const button = document.getElementById("submitButton");
+            button.disabled = true;
+            button.textContent = "Отправляем...";
 
-        document.getElementById(
-            "previewCourse"
-        ).textContent =
-            data.course;
-
-
-        document.getElementById(
-            "previewDirection"
-        ).textContent =
-            data.direction;
-
-
-        document.getElementById(
-            "previewExperience"
-        ).textContent =
-            data.experience;
-
-
-        document.getElementById(
-            "previewPortfolio"
-        ).textContent =
-            data.portfolio;
-
-
-        document.getElementById(
-            "previewMotivation"
-        ).textContent =
-            data.motivation;
-
-
-        currentStep = 6;
+            tg.sendData(JSON.stringify(data));
+        }
 
         updateStepUi();
-
-    }
-
-
-    function submitApplication() {
-
-        const data =
-            collectData();
-
-
-        const button =
-            document.getElementById(
-                "submitButton"
-            );
-
-
-        button.disabled =
-            true;
-
-
-        button.textContent =
-            "Отправляем...";
-
-
-        tg.sendData(
-            JSON.stringify(data)
-        );
-
-    }
-
-
-    updateStepUi();
-
-</script>
-
+    </script>
 </body>
 </html>
