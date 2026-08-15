@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Вступить во «В курсе»</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px 18px 40px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #111111);
+        }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            line-height: 1.05;
+            margin: 0 0 12px;
+        }
+
+        .subtitle {
+            color: var(--tg-theme-hint-color, #777777);
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border-radius: 14px;
+            border: 1px solid rgba(128, 128, 128, 0.25);
+
+            background: var(--tg-theme-secondary-bg-color, #f5f5f5);
+            color: var(--tg-theme-text-color, #111111);
+
+            font-size: 16px;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--tg-theme-button-color, #2481cc);
+        }
+
+        button {
+            width: 100%;
+
+            border: none;
+            border-radius: 14px;
+
+            padding: 16px;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            background: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+
+            cursor: pointer;
+        }
+
+        .note {
+            font-size: 13px;
+            line-height: 1.4;
+
+            margin-top: 14px;
+
+            color: var(--tg-theme-hint-color, #777777);
+
+            text-align: center;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        В КУРСЕ
+    </div>
+
+    <h1>
+        Стань частью команды
+    </h1>
+
+    <div class="subtitle">
+        Расскажи немного о себе. Это займёт всего несколько минут.
+    </div>
+
+
+    <form id="applicationForm">
+
+        <div class="field">
+            <label for="name">
+                Как тебя зовут?
+            </label>
+
+            <input
+                id="name"
+                type="text"
+                placeholder="Иван Иванов"
+                required
+            >
+        </div>
+
+
+        <div class="field">
+            <label for="faculty">
+                Факультет / институт
+            </label>
+
+            <input
+                id="faculty"
+                type="text"
+                placeholder="Например, ИИЯ"
+                required
+            >
+        </div>
+
+
+        <div class="field">
+            <label for="course">
+                Курс
+            </label>
+
+            <select id="course" required>
+
+                <option value="">
+                    Выбери курс
+                </option>
+
+                <option value="1">1 курс</option>
+                <option value="2">2 курс</option>
+                <option value="3">3 курс</option>
+                <option value="4">4 курс</option>
+                <option value="5">5 курс</option>
+                <option value="6">6 курс</option>
+
+                <option value="Другое">
+                    Другое
+                </option>
+
+            </select>
+        </div>
+
+
+        <div class="field">
+            <label for="direction">
+                Направление
+            </label>
+
+            <select id="direction" required>
+
+                <option value="">
+                    Куда хочешь?
+                </option>
+
+                <option value="Креаторы">
+                    💡 Креаторы
+                </option>
+
+                <option value="Дизайн">
+                    🎨 Дизайн
+                </option>
+
+                <option value="Фото">
+                    📸 Фото
+                </option>
+
+                <option value="Видео">
+                    🎥 Видео
+                </option>
+
+                <option value="SMM">
+                    📱 SMM
+                </option>
+
+            </select>
+        </div>
+
+
+        <div class="field">
+            <label for="experience">
+                Расскажи о своём опыте
+            </label>
+
+            <textarea
+                id="experience"
+                placeholder="Проекты, студенческая деятельность, навыки..."
+                required
+            ></textarea>
+        </div>
+
+
+        <div class="field">
+            <label for="portfolio">
+                Портфолио
+            </label>
+
+            <input
+                id="portfolio"
+                type="text"
+                placeholder="Ссылка или оставь пустым"
+            >
+        </div>
+
+
+        <div class="field">
+            <label for="motivation">
+                Почему хочешь во «В курсе»?
+            </label>
+
+            <textarea
+                id="motivation"
+                placeholder="Расскажи, почему тебе интересна наша команда"
+                required
+            ></textarea>
+        </div>
+
+
+        <button type="submit">
+            Отправить заявку
+        </button>
+
+        <div class="note">
+            После отправки заявка попадёт команде «В курсе».
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+
+    tg.expand();
+
+
+    const form = document.getElementById("applicationForm");
+
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const data = {
+
+            name:
+                document.getElementById("name").value.trim(),
+
+            faculty:
+                document.getElementById("faculty").value.trim(),
+
+            course:
+                document.getElementById("course").value,
+
+            direction:
+                document.getElementById("direction").value,
+
+            experience:
+                document.getElementById("experience").value.trim(),
+
+            portfolio:
+                document.getElementById("portfolio").value.trim()
+                || "Нет портфолио",
+
+            motivation:
+                document.getElementById("motivation").value.trim()
+        };
+
+
+        tg.sendData(
+            JSON.stringify(data)
+        );
+
+    });
+
+</script>
+
+</body>
+</html>
