@@ -132,7 +132,7 @@
     </h1>
 
     <div class="subtitle">
-        Расскажи немного о себе. Это займёт всего несколько минут.
+        Расскажи немного о себе. Это займёт несколько минут.
     </div>
 
 
@@ -280,54 +280,31 @@
 
 
 <script>
-
     const tg = window.Telegram.WebApp;
 
     tg.ready();
-
     tg.expand();
-
 
     const form = document.getElementById("applicationForm");
 
-
     form.addEventListener("submit", function(event) {
-
         event.preventDefault();
 
-
         const data = {
-
-            name:
-                document.getElementById("name").value.trim(),
-
-            faculty:
-                document.getElementById("faculty").value.trim(),
-
-            course:
-                document.getElementById("course").value,
-
-            direction:
-                document.getElementById("direction").value,
-
-            experience:
-                document.getElementById("experience").value.trim(),
-
+            name: document.getElementById("name").value.trim(),
+            faculty: document.getElementById("faculty").value.trim(),
+            course: document.getElementById("course").value,
+            direction: document.getElementById("direction").value,
+            experience: document.getElementById("experience").value.trim(),
             portfolio:
                 document.getElementById("portfolio").value.trim()
                 || "Нет портфолио",
-
             motivation:
                 document.getElementById("motivation").value.trim()
         };
 
-
-        tg.sendData(
-            JSON.stringify(data)
-        );
-
+        tg.sendData(JSON.stringify(data));
     });
-
 </script>
 
 </body>
